@@ -21,6 +21,7 @@ namespace WpfApp1 {
     /// </summary>
     public partial class MainWindow : Window {
         private List<Node> nodes = new List<Node>();
+        private Point offset;
 
         public MainWindow() {
             InitializeComponent();
@@ -46,11 +47,16 @@ namespace WpfApp1 {
                 n.SetZIndex(n.GetZIndex() - 1);
             }
             node.SetZIndex(nodes.Count);
+            Point mousePos = e.GetPosition(canvas);
+            offset = new Point(mousePos.X - node.position.X, mousePos.Y - node.position.Y);
         }
 
         private void Node_OnMoved(Node node, MouseEventArgs e) {
             if (e.LeftButton == MouseButtonState.Pressed) {
-                node.SetPosition(e.GetPosition(canvas));
+                Point position = e.GetPosition(canvas);
+                position.X -= offset.X;
+                position.Y -= offset.Y;
+                node.SetPosition(position);
             }
         }
 

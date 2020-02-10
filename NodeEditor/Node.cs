@@ -68,9 +68,14 @@ namespace WpfApp1 {
             SetPosition(position);
         }
 
+        public Point GetPosition() {
+            return position;
+        }
+
         public void SetPosition(Point position) {
             Canvas.SetLeft(rect, position.X - rect.Width * 0.5f);
             Canvas.SetTop(rect, position.Y - rect.Height * 0.5f);
+            this.position = position;
         }
 
         public void SetZIndex(int index) {
